@@ -17,17 +17,13 @@
 import sbt.Keys.{libraryDependencies, _}
 import sbt._
 import uk.gov.hmrc.DefaultBuildSettings._
-import uk.gov.hmrc.{SbtArtifactory, SbtAutoBuildPlugin}
-import uk.gov.hmrc.versioning.SbtGitVersioning
-import uk.gov.hmrc.SbtArtifactory.autoImport.makePublicallyAvailableOnBintray
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "csp-client"
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
   .settings(majorVersion := 4)
-  .settings(makePublicallyAvailableOnBintray := true)
+  .settings(isPublicArtefact := true)
   .settings(scalaSettings: _*)
   .settings(defaultSettings(): _*)
   .settings(
@@ -37,12 +33,6 @@ lazy val microservice = Project(appName, file("."))
         shared = sharedLibs,
         play25 = compilePlay25 ++ testCompilePlay25,
         play26 = compilePlay26 ++ testCompilePlay26
-    )
-  )
-  .settings(
-    resolvers := Seq(
-      Resolver.jcenterRepo,
-      Resolver.bintrayRepo("hmrc", "releases")
     )
   )
   .settings(PlayCrossCompilation.playCrossCompilationSettings)
