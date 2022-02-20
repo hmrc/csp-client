@@ -1,5 +1,4 @@
-CSP Client
-==========
+# csp-client
 [ ![Download](https://api.bintray.com/packages/hmrc/releases/csp-client/images/download.svg) ](https://bintray.com/hmrc/releases/csp-client/_latestVersion)
 
 Client library to ease implementation of Customer Service Platform products.
@@ -11,7 +10,7 @@ Client library to ease implementation of Customer Service Platform products.
 To use this in your project you will need to do the following steps:
 
 1. Add `"uk.gov.hmrc" %% "csp-client" % "x.y.z"` to your project dependencies
-2. Inject the client library into your controller where you will use the needed views and pass it into your view either directly or implicitly. 
+2. Inject the client library into your controller where you will use the needed views and pass it into your view either directly or implicitly.
 3. Call the webchat client in the scala.html template where you want the webchat tag to appear
   * `@webchatClient.webchatOfferPartial()`
   * (this example is for the offer based webchat)
@@ -26,7 +25,7 @@ To use this in your project you will need to do the following steps:
 3. Call the webchat client in the scala.html template where you want the webchat tag to appear
   * `@webchatClient.webchatOfferPartial()`
   * (this example is for the offer based webchat)
-3. Get the offer urls setup on the eGain servers. The CSP team can help with this. 
+3. Get the offer urls setup on the eGain servers. The CSP team can help with this.
 
 Notes:
 ------
@@ -36,3 +35,20 @@ Notes:
   In this case clearly the tag should be placed in your primary extension of hmrcGovUkTemplate. (pop ups will still only appear where configured on the eGain servers)
   * the client library contains typical config for the partial service endpoints.  Any entries in the application.conf file of your microservice will override them - for better or worse!
   * Consider wrapping the implementation in a feature flag to give you a config kill switch - just in case!
+
+
+## Run the tests and sbt fmt before raising a PR
+
+Format:
+
+`sbt fmt`
+
+Then run the tests and coverage report:
+
+`sbt clean coverage test coverageReport`
+
+If your build fails due to poor test coverage, *DO NOT* lower the test coverage threshold, instead inspect the generated report located here on your local repo: `/target/scala-2.12/scoverage-report/index.html`
+
+Then run the integration tests:
+
+`sbt it:test`
