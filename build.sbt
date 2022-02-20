@@ -36,6 +36,7 @@ lazy val microservice = Project(appName, file("."))
     )
   )
   .settings(PlayCrossCompilation.playCrossCompilationSettings)
+  .settings(ScoverageSettings.apply(): _*)
 
 val sharedLibs = Seq(
   "uk.gov.hmrc" %% "play-config" % "7.5.0",
